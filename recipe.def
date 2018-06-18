@@ -1,0 +1,41 @@
+Bootstrap: docker
+From: ubuntu:latest
+
+%help
+	echo "singularity --help"
+
+%setup
+	touch ${SINGULARITY_ROOTFS}/setup.txt
+
+%runscript
+	exec echo "Runscript"
+
+%files
+	/home/thadrien/projet20F07/
+
+%environment
+	
+
+%labels
+	AUTHOR AdrienTheo
+
+%post
+	apt-get update && apt-get install -y build-essential
+	apt-get -y install wget
+	apt -y install python-pip
+	pip install pyyaml
+	apt-get -y install mysql-server mysql-client mysql-common
+	apt-get -y install python-mysqldb
+	mkdir /app
+	cd /app
+	wget https://urgi.versailles.inra.fr/download/repet/REPET_linux-x64-2.5.tar.gz	
+	tar -xzf REPET_linux-x64-2.5.tar.gz
+	rm REPET_linux-x64-2.5.tar.gz
+	export REPET_PATH=/data_nas1/home/gafl/thadrien/
+	export PATH=$REPET_PATH/bin:$PATH
+	
+	
+    
+
+	
+
